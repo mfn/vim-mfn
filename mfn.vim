@@ -59,6 +59,10 @@ set fileformat=unix
 set fileformats=unix,dos
 " Autoindent by default
 set autoindent
+" Remember in which line the cursor was last in a file and re-position it
+" there upon opening the file again.
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal g'\"" | endif 
 
 " Custom mode when matching for wildcard files when opening new files with
 " e.g. split/vsplit
@@ -122,10 +126,27 @@ if has('win32')
     " directory
     set backupdir=$TMP
     " Automatically reload _vimrc when modifying
-    autocmd! bufwritepost _vimrc source %
+    autocmd! BufWritePost _vimrc source %
+    " remember window size and (if possible) position
+    autocmd! GUIEnter * if filereadable($HOME . "/gvim_win_pos_size.vim") | source $HOME/gvim_win_pos_size.vim | endif
+    function! Mfn_SaveSizes()
+            let x0 = getwinposx()
+            let y0 = getwinposy()
+            let x1 = &columns
+            let y1 = &lines
+            redir! > $HOME/gvim_win_pos_size.vim
+            echo 'if exists(":winpos") == 2'
+            echo "\t:winpos" x0 y0
+            echo "endif"
+            echo "set columns=" . x1
+            echo "set lines=" . y1
+            redir END
+    endfunction
+    au VimLeave * if has("gui_running") | silent call Mfn_SaveSizes() | endif 
+
 else
     " Automatically reload .vimrc when modifying
-    autocmd! bufwritepost .vimrc source %
+    autocmd! BufWritePost .vimrc source %
 endif
 
 " Use CTRL-a on visually selected block to apply formatting of PHP variables
