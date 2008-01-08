@@ -1,0 +1,134 @@
+" ~~~~~~~~~~~~~~~~~~ General ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Über-Vim-Config, config for Linux/Gui/Windows, mainly focused on PHP
+" development.
+" Author: Markus Fischer <markus@fischer.name>
+" Version: $Id$
+
+" We want colors and we want them now!
+syntax on
+" Always start higlighting from start of file. This may be a bit slower at
+" start up but gives accurate highlighting (which I think is more important)
+syntax sync fromstart
+" We generaly work on dark backgrounds
+set background=dark
+" Show the command in status line
+set showcmd
+" Show matching starting/ending brackets
+set showmatch
+" Show position of cursor
+set ruler
+" Highlighted searched terms
+set hlsearch
+" Make backspace work over indenting, end of lines and start of lines
+set bs=2
+" Using the shift commands < and >, shift for four spaces, too
+set shiftwidth=4
+" Use spaces instead of tabs
+set expandtab
+" A tab stands for four spaces
+set tabstop=4
+" Treat spaces like tabs
+set softtabstop=4
+" Show line numbers on the left
+set number
+" Set maximum width of text, however don't enfore it globally, only file
+" specific
+set textwidth=78
+set formatoptions-=t
+" Use more readable characters when tyring to to space tabs and spaces instead
+" of the default ones. Activate view with 'list', turn off with 'nolist'
+set listchars=tab:»·,trail:·
+" Visualize line on which the cursor is 
+set cursorline
+" Always show a status line, even if only one window
+set laststatus=2
+" Indicate jump out of the screen this number of lines before the screen ends
+set scrolloff=5
+" Number of columns to scroll left/right
+set sidescroll=1
+" How many columns before the end of window is reached when starting scrolling
+set sidescrolloff=1
+" When using vsplit, always split to the right, i.e. new file/content appears
+" on the right
+set splitright
+" Default to unix fileformat. If you open a file with EOL "dos" it should
+" switch properly to dos, too.
+set fileformat=unix
+" Finally, only and always use unix by default. If you want to DOS line
+" endigs, think again. If you still want them, manually set it with 'set " ff=dos'
+set fileformats=unix,dos
+" Autoindent by default
+set autoindent
+
+" Custom mode when matching for wildcard files when opening new files with
+" e.g. split/vsplit
+set wildmode=longest:full
+" Use enhanced enhance completion mode
+set wildmenu
+" Don't wrap lines
+set nowrap
+
+" Use CTRL-c when visually selecting allows to comment in/out the block at
+" once
+vnoremap <C-c> :call HashUnComment()<CR>
+
+" ~~~~~~~~~~~~~~~~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Define a highlight group for lines which I consider too long
+hi def link LineTooLong Error
+" Use this 'line too long' highlighting only on PHP files
+autocmd BufRead *.php match LineTooLong /\%>78v.\+/
+" Enable automatic line breaking and set default 'make' for PHP
+autocmd BufRead *.php set formatoptions+=t makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
+" Enable PHP specific indenting
+let PHP_default_indenting=1
+filetype indent on
+filetype plugin on
+" Sync PHP code highlighting from start
+let php_sync_method=0
+" In PHP, use folding based on PHP code
+" Currently doesn't work with PHP_default_indenting. In my view proper
+" automatic indenting outweights class/function folding for now.
+" let php_folding=1
+
+" ~~~~~~~~~~~~~~~~~~ Statusline ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+runtime mfn-status.vim
+
+" ~~~~~~~~~~~~~~~~~~ GUI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if has('win32')
+    " Sets the behavior for mouse and selection
+    behave xterm
+    " Explicitely specify default colors for GUI
+    highlight normal guifg=green guibg=#00005d
+    " The standard background color for folds is some gray which disturbs my
+    " visuals. Use a slighty different color then the current normal guibg
+    highlight Folded guibg=#000050
+    " Automatically put text select with VISUAL mode into the windows
+    " clipboard
+    set guioptions+=a
+    " Provide bottom/horizontal scrollbar
+    set guioptions+=b
+    " Don't show GUI toolbar
+    set guioptions-=T
+    " When using the mksession command, also store the resized window and
+    " window position information
+    set sessionoptions+=resize,winpos
+    " Copy whole file into windows clipboard with CTRL-a
+    noremap <C-A> 1GVG"*y
+    " Always show that we can have tabs. Posing :)
+    set showtabline=2
+    " Use a different background color for current CursorLine in GUI
+    highlight CursorLine guibg=#0000AA
+    " Store backup file sin system temp directory, not in the current
+    " directory
+    set backupdir=$TMP
+    " Automatically reload _vimrc when modifying
+    autocmd! bufwritepost _vimrc source %
+else
+    " Automatically reload .vimrc when modifying
+    autocmd! bufwritepost .vimrc source %
+endif
+
+" Use CTRL-a on visually selected block to apply formatting of PHP variables
+" and arrays. Moved this definition *after* we defined <C-a> in normal mode
+" gui, because normal mode overrides it.
+vnoremap <C-a> :call PhpAlign()<CR>
