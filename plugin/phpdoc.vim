@@ -85,7 +85,12 @@
 "                 class_long_space, func_short_pace, prop_todo_space)
 "               - Option to add 'Optional, defaults to xx.' documentation to
 "                 optional paramaters (func_params_optional)
-" 
+
+" No way this works < vim 7.0
+if version < 700
+    finish
+endif
+
 " User Configuration:
 " Override any values in your user vimrc
 if !exists('g:phpdoc_BackLinesEval')

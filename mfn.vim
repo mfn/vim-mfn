@@ -38,8 +38,10 @@ set formatoptions-=t
 " Use more readable characters when tyring to to space tabs and spaces instead
 " of the default ones. Activate view with 'list', turn off with 'nolist'
 set listchars=tab:»·,trail:·
-" Visualize line on which the cursor is 
-set cursorline
+if version >= 700
+    " Visualize line on which the cursor is 
+    set cursorline
+endif
 " Always show a status line, even if only one window
 set laststatus=2
 " Indicate jump out of the screen this number of lines before the screen ends
