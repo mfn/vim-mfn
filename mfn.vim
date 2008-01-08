@@ -77,6 +77,23 @@ set nowrap
 " Use CTRL-c when visually selecting allows to comment in/out the block at
 " once
 vnoremap <C-c> :call HashUnComment()<CR>
+" <Tab> in normal mode and shift <Tab> move to next/previous window
+nmap <Tab> <C-W>w
+nmap <S-Tab> <C-W>W
+" <Tab> and shift <Tab> in visual mode shift the area right/left with
+" shiftwidth spaces
+vmap <Tab> >
+vmap <S-Tab> <
+" When using visual selection, move around even in places there's no
+" character. This is possible for all modes, but probably less useful.
+set virtualedit=block
+" Make control tab behave like control pageup and control shift tab like
+" control pagedown => navigate between tabs
+nmap <C-Tab> <C-PageDown>
+nmap <C-S-Tab> <C-PageUp>
+vmap <C-Tab> <C-PageDown>
+vmap <C-S-Tab> <C-PageUp>
+
 
 " ~~~~~~~~~~~~~~~~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Define a highlight group for lines which I consider too long

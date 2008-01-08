@@ -37,5 +37,11 @@ function! Mfn_Status_Autoindent()
         return 'noai'
     endif
 endfunction
+function! Mfn_Status_FoAutowrap()
+    if &formatoptions =~# 't'
+        return 'awrap '
+    endif
+    return ' '
+endfunction
 
-set statusline=%t\ %m\ %r\ [%{Mfn_Status_Encoding()}]\ [%{Mfn_Status_Fileformat()}]\ %y\ %{Mfn_Status_Bufsize()}%=%{Mfn_Status_Autoindent()}\ ts=%{Mfn_Status_Tabstop()}\ tw=%{Mfn_Status_Textwidth()}\ %o\ %3b\ 0x%B\ [%l/%L\ :\ %c%V]\ %p%%
+set statusline=%t\ %m\ %r\ [%{Mfn_Status_Encoding()}]\ [%{Mfn_Status_Fileformat()}]\ %y\ %{Mfn_Status_Bufsize()}%=%{Mfn_Status_Autoindent()}\ ts=%{Mfn_Status_Tabstop()}\ tw=%{Mfn_Status_Textwidth()}\ %{Mfn_Status_FoAutowrap()}%o\ %3b\ 0x%B\ [%l/%L\ :\ %c%V]\ %p%%
