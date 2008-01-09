@@ -253,6 +253,8 @@ syn keyword	phpLabel	case default switch	contained
 
 " Statement
 syn keyword	phpStatement	return break continue exit	contained
+" Magic functions/methods
+syn keyword     phpStatement    __autoload __construct __destruct __set __get __call __toString __sleep __wakeup __clone __set_state __isset __unset contained
 
 " Keyword
 syn keyword	phpKeyword	var const	contained
