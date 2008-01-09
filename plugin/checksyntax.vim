@@ -12,7 +12,7 @@ let g:checksyntax = 3
 
 """ General variables
 if !exists('g:checksyntax_auto')
-    let g:checksyntax_auto = 1
+    let g:checksyntax_auto = 0
 endif
 " if !exists('g:checksyntax_shellpipe')
 "     let g:checksyntax_shellpipe = '>'
