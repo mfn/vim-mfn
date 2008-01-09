@@ -117,9 +117,7 @@ let php_sync_method=0
 runtime mfn-status.vim
 
 " ~~~~~~~~~~~~~~~~~~ GUI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if has('win32')
-    " Sets the behavior for mouse and selection
-    behave xterm
+if has('gui_running')
     " Explicitely specify default colors for GUI
     highlight normal guifg=green guibg=#00005d
     " The standard background color for folds is some gray which disturbs my
@@ -141,11 +139,6 @@ if has('win32')
     set showtabline=2
     " Use a different background color for current CursorLine in GUI
     highlight CursorLine guibg=#0000AA
-    " Store backup file sin system temp directory, not in the current
-    " directory
-    set backupdir=$TMP
-    " Automatically reload _vimrc when modifying
-    autocmd! BufWritePost _vimrc source %
     " remember window size and (if possible) position
     autocmd! GUIEnter * if filereadable($HOME . "/gvim_win_pos_size.vim") | source $HOME/gvim_win_pos_size.vim | endif
     function! Mfn_SaveSizes()
@@ -162,7 +155,15 @@ if has('win32')
             redir END
     endfunction
     au VimLeave * if has("gui_running") | silent call Mfn_SaveSizes() | endif 
-
+endif
+if has('win32')
+    " Sets the behavior for mouse and selection
+    behave xterm
+    " Automatically reload _vimrc when modifying
+    autocmd! BufWritePost _vimrc source %
+    " Store backup file sin system temp directory, not in the current
+    " directory
+    set backupdir=$TMP
 else
     " Automatically reload .vimrc when modifying
     autocmd! BufWritePost .vimrc source %
