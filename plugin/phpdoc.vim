@@ -467,7 +467,7 @@ function! PHPDOC_ClassVar()
         return
     endif
 
-    let pattern = '^\s*\(\(public\|protected\|private\|static\|var\)\s\+\)*\$'
+    let pattern = '^\s*\(\(public\|protected\|private\|static\|var\)\s\+\)\$'
 
     let [line, back, patIndex] = PHPDOC_GetBackLines(pattern)
     if PHPDOC_CommentBeforeLine(back)
