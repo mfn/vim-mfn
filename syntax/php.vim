@@ -336,11 +336,11 @@ if version >= 600
   syn case ignore
   syn include @phpCommentDocHtml syntax/html.vim
   unlet b:current_syntax
-  syn region phpCommentDocComment start="/\*\*" end="\*/" keepend contains=phpCommentDocCommentTitle,phpCommentDocTags,phpTodo,@phpCommentDocHtml,phpCommentDocEmail
+  syn region phpCommentDocComment start="/\*\*" end="\*/" keepend contains=phpCommentDocCommentTitle,phpCommentDocTags,phpTodo,@phpCommentDocHtml,phpCommentDocEmail extend
   syn match phpCommentDocEmail "<[^">]\+@[^">]\+>" contained
   " The CommentTitle is the first description in a phpCommentDocComment up until a
   " sentence is finished, a phpCommentDocTag starts or the general comment ends
-  syn region phpCommentDocCommentTitle contained matchgroup=phpCommentDocComment start="/\*\*" matchgroup=phpCommentDocCommentTitle keepend end="\(\.\|!\|?\)$" end="\(\.\|!\|?\)[ \t\r<&]"me=e-1 end="[^{]@"me=s-2,he=s-1 end="\*/"me=s-1,he=s-1 contains=phpCommentDocCommentStar,phpTodo,phpCommentDocTags,@phpCommentDocHtml
+  syn region phpCommentDocCommentTitle contained matchgroup=phpCommentDocComment start="/\*\*" matchgroup=phpCommentDocCommentTitle keepend end="\(\.\|!\|?\)$" end="\(\.\|!\|?\)[ \t\r<&]"me=e-1 end="[^{]@"me=s-2,he=s-1 end="\*/"me=s-1,he=s-1 end="\n\s*\*\s*$" contains=phpCommentDocCommentStar,phpTodo,phpCommentDocTags,@phpCommentDocHtml
   syn match phpCommentDocCommentStar contained "^\s*\*[^/]"me=e-1
   syn match phpCommentDocCommentStar contained "^\s*\*$"
 
