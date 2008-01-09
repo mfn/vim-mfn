@@ -343,7 +343,7 @@ if version >= 600
   syn match phpCommentDocCommentStar contained "^\s*\*$"
 
   " Supported list as of phpDocumenator 1.4.0
-  syn match phpCommentDocTags contained "@\(abstract\|access\|author\|category\|copyright\|deprecated\|example\|final\|filesource\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\|return\|see\|since\|static\|staticvar\|subpackage\|todo\|tutorial\|uses\|var\|version\)\s\+\S\+" contains=phpCommentDocParam,phpTodo
+  syn match phpCommentDocTags contained "@\(abstract\|access\|author\|category\|copyright\|deprecated\|example\|final\|filesource\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\|return\|see\|since\|static\|staticvar\|subpackage\|todo\|tutorial\|uses\|var\|version\)" contains=phpCommentDocParam,phpTodo
   syn match phpCommentDocParam contained "\s\S\+" contains=phpTodo
   syntax case match
 
@@ -488,6 +488,7 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink	 phpConstant	Constant
   HiLink	 phpCoreConstant	Constant
   HiLink	 phpComment	Comment
+  hi def         phpComment2    ctermfg=6 guifg=#b1c5ff
   HiLink	 phpException	Exception
   HiLink	 phpBoolean	Boolean
   HiLink	 phpStorageClass	StorageClass
@@ -536,11 +537,11 @@ if version >= 508 || !exists("did_php_syn_inits")
   endif
   " mfischer, 2008.01.03: pimped syntax changes, inspired by java.vim
   HiLink  phpCommentDocComment Comment
-  HiLink  phpCommentDocCommentTitle SpecialComment
-  HiLink  phpCommentDocTags Special
+  HiLink  phpCommentDocCommentTitle phpComment2
+  HiLink  phpCommentDocTags phpCommentDocCommentTitle
   HiLink  phpCommentDocParam phpCommentDocComment
   HiLink  phpCommentDocCommentStar phpCommentDocComment
-  HiLink  phpCommentDocEmail Function
+  HiLink  phpCommentDocEmail phpComment2
 
   delcommand HiLink
 endif

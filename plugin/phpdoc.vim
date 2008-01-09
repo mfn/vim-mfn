@@ -85,6 +85,8 @@
 "                 class_long_space, func_short_pace, prop_todo_space)
 "               - Option to add 'Optional, defaults to xx.' documentation to
 "                 optional paramaters (func_params_optional)
+"               - Option to add 'Defaults to xx.' documentation to
+"                 properties (prop_var_default)
 
 " No way this works < vim 7.0
 if version < 700
@@ -150,6 +152,7 @@ let g:phpdoc_generate = [
             \ 'prop_todo',
             \ 'prop_todo_space',
             \ 'prop_var',
+            \ 'prop_var_default',
             \ ]
 endif
 
@@ -464,7 +467,7 @@ function! PHPDOC_ClassVar()
         return
     endif
 
-    let pattern = '\s*\(\(public\|protected\|private\|static\|var\)\s\+\)\+\$'
+    let pattern = '\s*\(\(public\|protected\|private\|static\|var\)\s\+\)*\$'
 
     let [line, back, patIndex] = PHPDOC_GetBackLines(pattern)
     if PHPDOC_CommentBeforeLine(back)
@@ -474,7 +477,6 @@ function! PHPDOC_ClassVar()
         return
     endif
 
-    let prefix = ''
     " Get the prefix of the line to indent the
     " auto inserted text the same as the rest...
     let indent = matchstr(line, '^\s*')
@@ -482,23 +484,29 @@ function! PHPDOC_ClassVar()
     " and get the prefix of the variable name...to get the type..
     " Determine the first alpha-character of the variable so we can determine
     " the type of it.
-    if line =~ '^\s*[a-z]\+\s\+\$_\?[A-Za-z]\+'
-        let index = matchend(line, '^\s*[a-z]\+\s\+\$_\?')
-        let prefix = matchstr(line, '[A-Za-z]', index) 
-    endif
+    let index = matchend(line, '\$_\?')
+    let prefix = matchstr(line, '[A-Za-z]', index) 
 
     let type = PHPDOC_GetPHPDocType(prefix)
 
     let @z= indent . "/**\n"
     if PHPDOC_generate('prop_todo')
-        let @z=@z . indent . " * TODO: description\n"
+        let @z=@z . indent . " * TODO: description.\n"
         if PHPDOC_generate('prop_todo_space')
             let @z=@z . indent . " * \n"
         endif
     endif
     if PHPDOC_generate('prop_var')
-        let @z=@z . indent . " * @var " . type . "\n"
+        let @z=@z . indent . " * @var " . type
     endif
+    if PHPDOC_generate('prop_var_default')
+        let paramDefault = matchlist(line, '\$[A-Za-z0-9_]\+\s*=\s*\(.*\);')
+        if exists('paramDefault[1]')
+            let @z=@z . '  Defaults to ' . paramDefault[1] . '. '
+        endif
+    endif
+    let @z=@z . "\n"
+
 
     let @z=@z . PHPDOC_UserTags('property', indent)
 
