@@ -116,6 +116,9 @@ let php_sync_method=0
 " ~~~~~~~~~~~~~~~~~~ Statusline ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 runtime mfn-status.vim
 
+" ~~~~~~~~~~~~~~~~~~ Menu ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+runtime mfn-menu.vim
+
 " ~~~~~~~~~~~~~~~~~~ GUI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if has('gui_running')
     " Explicitely specify default colors for GUI
