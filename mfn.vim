@@ -101,9 +101,11 @@ hi def PhpLineTooLong ctermbg=1 guibg=#64005d
 " Use this 'line too long' highlighting only on PHP files
 autocmd BufRead *.php match PhpLineTooLong /\%>80v.\+/
 " Enable automatic line breaking and set default 'make' for PHP
-autocmd BufRead *.php set formatoptions+=t makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
+autocmd BufRead *.php set formatoptions=tqrocb
+autocmd BufEnter *.php set makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
 " Enable PHP specific indenting
 let PHP_default_indenting=1
+let PHP_autoformatcomment=0
 filetype indent on
 filetype plugin on
 " Sync PHP code highlighting from start
@@ -112,6 +114,10 @@ let php_sync_method=0
 " Currently doesn't work with PHP_default_indenting. In my view proper
 " automatic indenting outweights class/function folding for now.
 " let php_folding=1
+
+" ~~~~~~~~~~~~~~~~~~ Misc files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" When editing a build.xml file, :make refers to phing
+autocmd BufEnter build.xml set makeprg=phing errorformat=%f:%l:%c
 
 " ~~~~~~~~~~~~~~~~~~ Statusline ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 runtime mfn-status.vim

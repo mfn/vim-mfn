@@ -310,8 +310,7 @@ function! ResetOptions()
 
 	    setlocal comments=s1:/*,mb:*,ex:*/,://,:#
 
-        " mfischer, 2008.01.08: don't touch auto-wrap
-	    " setlocal formatoptions-=t
+	    setlocal formatoptions-=t
 	    setlocal formatoptions+=q
 	    setlocal formatoptions+=r
 	    setlocal formatoptions+=o
