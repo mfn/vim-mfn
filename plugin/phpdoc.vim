@@ -389,7 +389,7 @@ function! PHPDOC_FuncHeader(line, back)
             for parameter in paramList
                 let index = matchend(parameter, '\$')
                 " If we've a typehint, use that as type instead looking at the prefix
-                let typehint = matchlist(parameter, '\([A-Za-z:]\+\)\s\+\$')
+                let typehint = matchlist(parameter, '\([A-Za-z0-9_:]\+\)\s\+\$')
                 if exists('typehint[1]')
                     if len(typehint[1]) > longest_paramType
                         let longest_paramType = len(typehint[1])
@@ -467,7 +467,7 @@ function! PHPDOC_ClassVar()
         return
     endif
 
-    let pattern = '^\s*\(\(public\|protected\|private\|static\|var\)\s\+\)\$'
+    let pattern = '^\s*\(\(public\|protected\|private\|static\|var\)\s\+\)\+\$'
 
     let [line, back, patIndex] = PHPDOC_GetBackLines(pattern)
     if PHPDOC_CommentBeforeLine(back)

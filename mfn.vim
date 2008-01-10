@@ -33,7 +33,7 @@ set softtabstop=4
 set number
 " Set maximum width of text, however don't enfore it globally, only file
 " specific
-set textwidth=78
+set textwidth=80
 set formatoptions-=t
 " Use more readable characters when tyring to to space tabs and spaces instead
 " of the default ones. Activate view with 'list', turn off with 'nolist'
@@ -97,9 +97,9 @@ vmap <C-S-Tab> <C-PageUp>
 
 " ~~~~~~~~~~~~~~~~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Define a highlight group for lines which I consider too long
-hi def link LineTooLong Error
+hi def PhpLineTooLong ctermbg=1 guibg=#64005d
 " Use this 'line too long' highlighting only on PHP files
-autocmd BufRead *.php match LineTooLong /\%>78v.\+/
+autocmd BufRead *.php match PhpLineTooLong /\%>80v.\+/
 " Enable automatic line breaking and set default 'make' for PHP
 autocmd BufRead *.php set formatoptions+=t makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
 " Enable PHP specific indenting
