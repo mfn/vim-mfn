@@ -14,7 +14,8 @@ func! PhpAlign() range
     let l:endline     = a:lastline
     let l:maxlength = 0
     while l:line <= l:endline
-        if getline (l:line) =~ '^\s*\/\/.*$'
+        " Don't align commented lines or lines which don't have '=>'
+        if getline (l:line) =~ '^\s*\(\/\/\|#\).*$' || getline (l:line) !~ "=>"
             let l:line = l:line + 1
             continue
         endif
@@ -28,7 +29,8 @@ func! PhpAlign() range
     let l:format = "%s%-" . l:maxlength . "s %s %s"
     
     while l:line <= l:endline
-        if getline (l:line) =~ '^\s*\/\/.*$'
+        " Don't align commented lines or lines which don't have '=>'
+        if getline (l:line) =~ '^\s*\(\/\/\|#\).*$' || getline (l:line) !~ "=>"
             let l:line = l:line + 1
             continue
         endif
