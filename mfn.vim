@@ -116,19 +116,19 @@ let php_sync_method=0
 " let php_folding=1
 
 " When joining lines in a comment, remove the comment character.
-autocmd BufEnter *.php nmap <buffer> J :call Mfn_PHP_JoinWithoutCommentChar()<CR>
+autocmd BufRead,BufNewFile *.php nmap <buffer> J :call Mfn_PHP_JoinWithoutCommentChar()<CR>
 function! Mfn_PHP_JoinWithoutCommentChar()
     " Only perform our custom join when the current and next line is a comment
     if getline('.') =~ '^\s*\(\*\|#\|//\)' && getline(line('.')+1) =~ '^\s*\(\*\|#\|//\)'
-        " before doing the join, remove trailing whitespaces
-        setline('.', substitute(getline('.'), '\s*$', '', ''));
+        " before doing the join, remove trailing whitespaces on first line
+        call setline('.', substitute(getline('.'), '\s*$', '', ''))
         if getline('.') =~ '^\s*//'
-            call feedkeys('J3x', 'n')
+            normal! J3x
         else
-            call feedkeys('J2x', 'n')
+            normal! J2x
         endif
     else
-        call feedkeys('J', 'n')
+        normal! J
     endif
 endfunc
 
