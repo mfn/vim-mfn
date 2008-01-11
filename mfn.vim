@@ -115,6 +115,24 @@ let php_sync_method=0
 " automatic indenting outweights class/function folding for now.
 " let php_folding=1
 
+" When joining lines in a comment, remove the comment character.
+autocmd BufEnter *.php nmap <buffer> J :call Mfn_PHP_JoinWithoutCommentChar()<CR>
+function! Mfn_PHP_JoinWithoutCommentChar()
+    " Only perform our custom join when the current and next line is a comment
+    if getline('.') =~ '^\s*\(\*\|#\|//\)' && getline(line('.')+1) =~ '^\s*\(\*\|#\|//\)'
+        " before doing the join, remove trailing whitespaces
+        setline('.', substitute(getline('.'), '\s*$', '', ''));
+        if getline('.') =~ '^\s*//'
+            call feedkeys('J3x', 'n')
+        else
+            call feedkeys('J2x', 'n')
+        endif
+    else
+        call feedkeys('J', 'n')
+    endif
+endfunc
+
+
 " ~~~~~~~~~~~~~~~~~~ Misc files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " When editing a build.xml file, :make refers to phing
 autocmd BufEnter build.xml set makeprg=phing errorformat=%f:%l:%c
