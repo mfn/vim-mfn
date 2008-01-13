@@ -79,7 +79,6 @@ set nowrap
 vnoremap <C-c> :call HashUnComment()<CR>
 " <Tab> in normal mode and shift <Tab> move to next/previous window
 nmap <Tab> <C-W>w
-nmap <S-Tab> <C-W>W
 " <Tab> and shift <Tab> in visual mode shift the area right/left with
 " shiftwidth spaces
 vmap <Tab> >
