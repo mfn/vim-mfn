@@ -292,6 +292,12 @@ else
     let b:PHP_autoformatcomment = 1
 endif
 
+if exists("PHP_cindent_for_case_default")
+    let b:PHP_cindent_for_case_default = PHP_cindent_for_case_default
+else
+    let b:PHP_cindent_for_case_default = 0
+endif
+
 let b:PHP_lastindented = 0
 let b:PHP_indentbeforelast = 0
 let b:PHP_indentinghuge = 0
@@ -1147,10 +1153,15 @@ function! GetPhpIndent()
     " If the current line closes a multiline function call or array def XXX
     if cline =~  '^\s*);\='
 	let ind = ind - &sw
-	" CASE and DEFAULT are indented at the same level than the SWITCH
     elseif cline =~# defaultORcase
-	let ind = ind - &sw
-
+        if b:PHP_cindent_for_case_default
+            " CASE and DEFAULt are indented line in C, one level away from
+            " SWITCH
+            let ind = cindent(v:lnum)
+        else
+            " CASE and DEFAULT are indented at the same level than the SWITCH
+            let ind = ind - &sw
+        endif
     endif
 
     let b:PHP_CurrentIndentLevel = ind
