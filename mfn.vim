@@ -118,7 +118,7 @@ let php_sync_method=0
 autocmd BufRead,BufNewFile *.php nmap <buffer> J :call Mfn_PHP_JoinWithoutCommentChar()<CR>
 function! Mfn_PHP_JoinWithoutCommentChar()
     " Only perform our custom join when the current and next line is a comment
-    if getline('.') =~ '^\s*\(\*\|#\|//\)' && getline(line('.')+1) =~ '^\s*\(\*\|#\|//\)'
+    if getline('.') =~ '^\s*\(/\*\+\|\*\|#\|//\)' && getline(line('.')+1) =~ '^\s*\(\*\|#\|//\)'
         " before doing the join, remove trailing whitespaces on first line
         call setline('.', substitute(getline('.'), '\s*$', '', ''))
         if getline('.') =~ '^\s*//'
