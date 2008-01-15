@@ -106,7 +106,7 @@ endif
 "              \   'class' : {
 "              \       'author'        :   'Markus Fischer <markus@fischer.name>',
 "              \       'since'         :   strftime('%Y-%m-%d'),
-"              \       'copyright'     :   '(c) ' . strftime('%Y') . ' by Dr. Maté GmbH',
+"              \       'copyright'     :   '(c) ' . strftime('%Y') . ' Company',
 "              \       'version'       :   '$Id',
 "              \       'package'       :   'Mfn',
 "              \   },
