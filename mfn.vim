@@ -105,7 +105,7 @@ autocmd BufEnter *.php set makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ 
 " Enable PHP specific indenting
 let PHP_default_indenting=1
 let PHP_autoformatcomment=0
-let PHP_cindent_for_case_default=1
+let PHP_vintage_case_default_indent=1
 filetype indent on
 filetype plugin on
 " Sync PHP code highlighting from start

@@ -2,7 +2,7 @@
 " Language:	PHP
 " Author:	John Wellesz <John.wellesz (AT) teaser (DOT) fr>
 " URL:		http://www.2072productions.com/vim/indent/php.vim
-" Last Change:  2007 Janury 13th
+" Last Change:  2007 Janury 15th
 " Newsletter:   http://www.2072productions.com/?to=php-indent-for-vim-newsletter.php
 " Version:	1.25
 "
@@ -12,6 +12,7 @@
 "			- Fix when array indenting is broken and a closing
 "			');' is placed at the start of the line, following
 "			lines will be indented correctly.
+"			- New option: PHP_vintage_case_default_indent (default off)
 "			- Minor fixes and optimizations.
 "
 "
@@ -251,7 +252,9 @@
 "
 "			NOTE: The script will be a bit slower if you use this option because
 "			some optimizations won't be available.
-
+"
+" Options: PHP_vintage_case_default_indent = 1 (defaults to 0) to add a meaningless indent
+"		    befaore 'case:' and 'default":' statement in switch blocks.
 
 " Remove all the comments from this file:
 " :%s /^\s*".*\({{{\|xxx\)\@<!\n\c//g
@@ -286,17 +289,20 @@ else
     let b:PHP_BracesAtCodeLevel = 0
 endif
 
+
 if exists("PHP_autoformatcomment")
     let b:PHP_autoformatcomment = PHP_autoformatcomment
 else
     let b:PHP_autoformatcomment = 1
 endif
 
-if exists("PHP_cindent_for_case_default")
-    let b:PHP_cindent_for_case_default = PHP_cindent_for_case_default
+if exists("PHP_vintage_case_default_indent")
+    let b:PHP_vintage_case_default_indent = PHP_vintage_case_default_indent
 else
-    let b:PHP_cindent_for_case_default = 0
+    let b:PHP_vintage_case_default_indent = 0
 endif
+
+
 
 let b:PHP_lastindented = 0
 let b:PHP_indentbeforelast = 0
@@ -925,7 +931,7 @@ function! GetPhpIndent()
 	let previous_line = last_line
 	let last_line_num = lnum
 
-	" let's find the indent if the block starter (if, while, for, etc...)
+	" let's find the indent of the block starter (if, while, for, etc...)
 	while last_line_num > 1
 
 	    if previous_line =~ '^\s*\%(' . s:blockstart . '\|\%([a-zA-Z]\s*\)*function\)' " XXX 20071103 uselss since previous test cannot be true since |& was removed from blockstarters && previous_line !~ '^\s*[|&]'
@@ -1103,9 +1109,13 @@ function! GetPhpIndent()
 		let ind = ind + &sw
 	    endif
 
-	    if b:PHP_BracesAtCodeLevel || cline !~# defaultORcase
+"    echo "43"
+"    call getchar()
+    "	    if b:PHP_BracesAtCodeLevel || cline !~# defaultORcase
+	    if b:PHP_BracesAtCodeLevel || b:PHP_vintage_case_default_indent == 1 || cline !~# defaultORcase
 		" case and default are not indented inside blocks
 		let b:PHP_CurrentIndentLevel = ind
+
 		return ind
 	    endif
 
@@ -1153,15 +1163,10 @@ function! GetPhpIndent()
     " If the current line closes a multiline function call or array def XXX
     if cline =~  '^\s*);\='
 	let ind = ind - &sw
+	" CASE and DEFAULT are indented at the same level than the SWITCH
     elseif cline =~# defaultORcase
-        if b:PHP_cindent_for_case_default
-            " CASE and DEFAULt are indented line in C, one level away from
-            " SWITCH
-            let ind = cindent(v:lnum)
-        else
-            " CASE and DEFAULT are indented at the same level than the SWITCH
-            let ind = ind - &sw
-        endif
+	let ind = ind - &sw
+
     endif
 
     let b:PHP_CurrentIndentLevel = ind
