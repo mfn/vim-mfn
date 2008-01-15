@@ -12,7 +12,7 @@
 "
 " Release:      0.26a
 "
-" Tested:       VIM 6.1
+" Tested:       VIM 6.1, VIM 7.0, VIM 7.1
 " 
 " Version:      $Id: phpdoc.vim,v 1.8 2003/01/05 14:59:41 kama Exp $
 " 
