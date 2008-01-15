@@ -69,16 +69,11 @@
 "               - Position cursor where it was after inserting phpdoc. This
 "                 allows to continue writing code without interruption.
 "               - Optionally add parameter name after @param type
-"               - Support user specific configuration for
-"                 - Author ( g:phpdoc_Author )
-"                 - Copyright notice ( g:phpdoc_Copyright )
-"                 - Default @package ( g:phpdoc_DefaultPackage )
-"                 - adding @param name ( g:phpdoc_ParamName )
 "               - Added phpdoc_BackLineEval, which means class, functions and
 "                 properties can span multiple lines and still generate a
 "                 proper phpdoc
 "               - Let the user decide what exactly to generate
-"                 (g:phpdoc_generate, g:phpdoc_since)
+"                 (g:phpdoc_generate)
 "               - Align parameter types and names with spaces
 "               - Use advanced phpdoc tag templating Dictionary
 "               - Option to add spaced lines between TODOs (class_short_sace,
