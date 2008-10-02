@@ -104,11 +104,11 @@ endif
 " Support of user specific phpdoc tags. Example dictionary:
 "  let g:phpdoc_tags = {
 "              \   'class' : {
-"              \       'author'        :   'Markus Fischer <markus@fischer.name>',
-"              \       'since'         :   strftime('%Y-%m-%d'),
-"              \       'copyright'     :   '(c) ' . strftime('%Y') . ' Company',
-"              \       'version'       :   '$Id',
-"              \       'package'       :   'Mfn',
+"              \       'version'   :   '$Id',
+"              \       'package'   :   'Mfn',
+"              \       'author'    :   'Markus Fischer <markus@fischer.name>',
+"              \       'copyright' :   '(c) ' . strftime('%Y') . ' Company',
+"              \       'since'     :   strftime('%Y-%m-%d'),
 "              \   },
 "              \   'function' : {
 "              \       'author'        :   'Markus Fischer <markus@fischer.name>',
@@ -402,7 +402,7 @@ function! PHPDOC_FuncHeader(line, back)
                 endif
             endfor
             " Add spaces for alignment
-            let longest_paramType = longest_paramType + 2 " just two spaces for clear separation
+            let longest_paramType = longest_paramType + 1 " just two spaces for clear separation
             let longest_paramName = longest_paramName + 2 " one for the $ and one for the space after
 
             " Second pass: actually build the phpdoc strings
@@ -410,13 +410,13 @@ function! PHPDOC_FuncHeader(line, back)
                 " If we've a typehint, use that as type instead looking at the prefix
                 let typehint = matchlist(parameter, '\([A-Za-z0-9:_]\+\)\s\+\$')
                 if exists('typehint[1]')
-                    let @z=@z . indent . " * @param  " . typehint[1]
+                    let @z=@z . indent . " * @param " . typehint[1]
                     let @z=@z . repeat(' ', longest_paramType - len(typehint[1]))
                 else
                     let index = matchend(parameter, '\$')
                     let prefix = matchstr(parameter, '[A-Za-z]', index)
                     let paramType = PHPDOC_GetPHPDocType(prefix)
-                    let @z=@z . indent . " * @param  " . paramType
+                    let @z=@z . indent . " * @param " . paramType
                     let @z=@z . repeat(' ', longest_paramType - len(paramType))
                 endif
                 if PHPDOC_generate('func_params_name')
@@ -433,6 +433,9 @@ function! PHPDOC_FuncHeader(line, back)
                 endif
                 let @z=@z . "\n"
             endfor
+            if exists('paramList[0]')
+                let @z=@z . indent . " * \n"
+            endif
         endif
     endif
 
