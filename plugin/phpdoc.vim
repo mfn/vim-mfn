@@ -402,7 +402,7 @@ function! PHPDOC_FuncHeader(line, back)
                 endif
             endfor
             " Add spaces for alignment
-            let longest_paramType = longest_paramType + 1 " just two spaces for clear separation
+            let longest_paramType = longest_paramType + 1 " just one space for clear separation
             let longest_paramName = longest_paramName + 2 " one for the $ and one for the space after
 
             " Second pass: actually build the phpdoc strings
