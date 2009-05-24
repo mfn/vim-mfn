@@ -40,7 +40,10 @@ set formatoptions-=t
 set listchars=tab:»·,trail:·
 if version >= 700
     " Visualize line on which the cursor is 
-    set cursorline
+    " Unfortunately this can be a real performance hog even on small files under
+    " certain instances (probably in conjunction with high desktop resolution),
+    " see also http://vim.wikia.com/wiki/Highlight_current_line
+    " set cursorline
 endif
 " Always show a status line, even if only one window
 set laststatus=2
