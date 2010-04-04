@@ -101,7 +101,7 @@ vmap <C-S-Tab> <C-PageUp>
 " Define a highlight group for lines which I consider too long
 hi def PhpLineTooLong ctermbg=1 guibg=#64005d
 " Use this 'line too long' highlighting only on PHP files
-autocmd BufRead *.php match PhpLineTooLong /\%>80v.\+/
+" autocmd BufRead *.php match PhpLineTooLong /\%>80v.\+/
 " Enable automatic line breaking and set default 'make' for PHP
 autocmd BufRead *.php set formatoptions=tqrocb
 autocmd BufEnter *.php set makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
