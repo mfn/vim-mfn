@@ -3,5 +3,5 @@ Make sure *this* directory is included in the 'runtimepath' and it is set
 
 This example assumes this file is in /home/user/vim/mfn/install.txt :
 
-set runtimepath=$HOME/vim/mfn,$VIMRUNTIME
+set runtimepath^=$HOME/vim/mfn
 runtime mfn.vim
