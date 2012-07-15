@@ -79,7 +79,7 @@ set nowrap
 " Use CTRL-c when visually selecting allows to comment in/out the block at
 " once
 vnoremap <C-c> :call HashUnComment()<CR>
-" <Tab> in normal mode and shift <Tab> move to next/previous window
+" <Tab> in normal mode move to next window
 nmap <Tab> <C-W>w
 " <Tab> and shift <Tab> in visual mode shift the area right/left with
 " shiftwidth spaces
@@ -94,6 +94,18 @@ nmap <C-Tab> <C-PageDown>
 nmap <C-S-Tab> <C-PageUp>
 vmap <C-Tab> <C-PageDown>
 vmap <C-S-Tab> <C-PageUp>
+" Increase history for commands entered
+set history=256
+" Vim Undo limitation
+" Vim has currently a limitation that any change within a single
+" insert-operation (be it 10 or 1000 characters) will also be undo'ed after
+" leaving insert mode and doing the undo operation. With the workaround from
+" http://stackoverflow.com/questions/2895551/how-do-i-get-fine-grained-undo-in-vim/4360415#4360415
+" it's possible to start a new undo sequence by mapping it to keys.
+" For now we will use Space, Return and Tab to all create new undo sequences.
+inoremap <Space> <Space><C-g>u
+inoremap <Return> <Return><C-g>u
+inoremap <Tab> <Tab><C-g>u
 
 
 " ~~~~~~~~~~~~~~~~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,6 +146,14 @@ function! Mfn_PHP_JoinWithoutCommentChar()
     endif
 endfunc
 
+" ~~~~~~~~~~~~~~~~~~ Ruby ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Use 2 instead of 4 spaces for tabs; per general Ruby convention; enforce
+" textwidth
+autocmd BufRead *.rb set shiftwidth=2 tabstop=2 softtabstop=2 formatoptions+=t list
+autocmd BufEnter *.rb set makeprg=ruby\ -wc\ % errorformat=%f:%l:\ %m
+" I prefer ruby syntax to be highlighted this way
+let ruby_operators=1
+let ruby_minlines=100
 
 " ~~~~~~~~~~~~~~~~~~ Misc files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " When editing a build.xml file, :make refers to phing
