@@ -2,7 +2,6 @@
 " Über-Vim-Config, config for Linux/Gui/Windows, mainly focused on PHP
 " development.
 " Author: Markus Fischer <markus@fischer.name>
-" Version: $Id$
 
 " We want colors and we want them now!
 syntax on
