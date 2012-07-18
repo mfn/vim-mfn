@@ -75,6 +75,8 @@ set wildmode=longest:full
 set wildmenu
 " Don't wrap lines
 set nowrap
+" Enable filetype detection
+filetype plugin indent on
 
 " Use CTRL-c when visually selecting allows to comment in/out the block at
 " once
@@ -114,14 +116,12 @@ hi def PhpLineTooLong ctermbg=1 guibg=#64005d
 " Use this 'line too long' highlighting only on PHP files
 " autocmd BufRead *.php match PhpLineTooLong /\%>80v.\+/
 " Enable automatic line breaking and set default 'make' for PHP
-autocmd BufRead *.php set formatoptions=tqrocb
+autocmd FileType php setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab formatoptions=tqrocb
 autocmd BufEnter *.php set makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
 " Enable PHP specific indenting
 let PHP_default_indenting=1
 let PHP_autoformatcomment=0
 let PHP_vintage_case_default_indent=1
-filetype indent on
-filetype plugin on
 " Sync PHP code highlighting from start
 let php_sync_method=0
 " In PHP, use folding based on PHP code
@@ -149,7 +149,8 @@ endfunc
 " ~~~~~~~~~~~~~~~~~~ Ruby ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Use 2 instead of 4 spaces for tabs; per general Ruby convention; enforce
 " textwidth
-autocmd BufRead *.rb set shiftwidth=2 tabstop=2 softtabstop=2 formatoptions+=t list
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 formatoptions+=t list
+autocmd BufNewFile,BufRead *.ru set filetype=ruby
 autocmd BufEnter *.rb set makeprg=ruby\ -wc\ % errorformat=%f:%l:\ %m
 " I prefer ruby syntax to be highlighted this way
 let ruby_operators=1
