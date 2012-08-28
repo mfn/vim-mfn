@@ -39,6 +39,7 @@ function! s:Ruby_Matchit()
         if strlen(matchstr(getline("."), "^\\s*")) == spaces
                 \&& getline(".") !~ "^\\s*$"
                 \&& getline(".") !~ "^#"
+                \&& getline(".") !~ "^="
             normal ^
             break
         elseif line(".") == 1
@@ -53,6 +54,7 @@ function! s:Ruby_Matchit()
             if strlen(matchstr(getline("."), "^\\s*")) == spaces
                     \&& getline(".") !~ "^\\s*$"
                     \&& getline(".") !~ "^#"
+                    \&& getline(".") !~ "^="
                 normal ^
                 break
             elseif line(".") == line("$")
