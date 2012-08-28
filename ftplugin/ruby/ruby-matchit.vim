@@ -21,45 +21,45 @@ function! s:Ruby_Matchit()
 
     " use default matching for parenthesis, brackets and braces:
     if strpart(getline("."), col(".")-1, 1) =~ '(\|)\|{\|}\|\[\|\]'
-	normal \\\\\
+    normal \\\\\
     endif
 
     normal ^
     sil! let curr_word = expand('<cword>')
     if curr_word == "" 
-	return 
+    return 
     endif
     
     let curr_line = line(".")
     let spaces = strlen(matchstr(getline("."), "^\\s*"))
 
     if curr_word =~ '\<end\>'
-	while 1
-	    normal k
-	    if strlen(matchstr(getline("."), "^\\s*")) == spaces
-			\&& getline(".") !~ "^\\s*$"
-			\&& getline(".") !~ "^#"
-		normal ^
-		break
-	    elseif line(".") == 1
-		exe 'normal ' . curr_line . 'G'
-		break
-	    endif
-	endwhile
+    while 1
+        normal k
+        if strlen(matchstr(getline("."), "^\\s*")) == spaces
+            \&& getline(".") !~ "^\\s*$"
+            \&& getline(".") !~ "^#"
+        normal ^
+        break
+        elseif line(".") == 1
+        exe 'normal ' . curr_line . 'G'
+        break
+        endif
+    endwhile
     elseif curr_word =~ '\<\(if\|unless\|elsif\|else\|case\|when\|while\|'
-		\.'until\|def\|\|module\|class\)\>'
-	while 1
-	    normal j
-	    if strlen(matchstr(getline("."), "^\\s*")) == spaces
-			\&& getline(".") !~ "^\\s*$"
-			\&& getline(".") !~ "^#"
-		normal ^
-		break
-	    elseif line(".") == line("$")
-		exe 'normal ' . curr_line . 'G'
-		break
-	    endif
-	endwhile
+        \.'until\|def\|\|module\|class\)\>'
+    while 1
+        normal j
+        if strlen(matchstr(getline("."), "^\\s*")) == spaces
+            \&& getline(".") !~ "^\\s*$"
+            \&& getline(".") !~ "^#"
+        normal ^
+        break
+        elseif line(".") == line("$")
+        exe 'normal ' . curr_line . 'G'
+        break
+        endif
+    endwhile
     endif
 
 endfunction
