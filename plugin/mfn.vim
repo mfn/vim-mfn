@@ -167,6 +167,12 @@ runtime mfn-status.vim
 runtime mfn-menu.vim
 
 " ~~~~~~~~~~~~~~~~~~ GUI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if has('gui_macvim')
+    " prevents loading the macvim colorscheme; loads default instead
+    " Otherwise these clashes with the whole gui color initialization and
+    " the desire for background=dark
+    let macvim_skip_colorscheme=1
+endif
 if has('gui_running')
     " Explicitely specify default colors for GUI
     highlight normal guifg=green guibg=#00005d
@@ -206,6 +212,14 @@ if has('gui_running')
     endfunction
     au VimLeave * if has("gui_running") | silent call Mfn_SaveSizes() | endif 
 endif
+if has('gui_macvim')
+    " slightly more blueish background on osx
+    highlight normal guibg=#00006d
+    " current preferred font/size
+    set guifont=Menlo:h15
+    " Enable for mac; but can be a performance hog
+    set cursorline
+end
 if has('win32')
     " Sets the behavior for mouse and selection
     behave xterm
