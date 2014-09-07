@@ -119,7 +119,6 @@ hi def PhpLineTooLong ctermbg=1 guibg=#64005d
 autocmd FileType php setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab formatoptions=tqrocb
 autocmd BufEnter *.php set makeprg=php\ -l\ % errorformat=%m\ in\ %f\ on\ line\ %l
 " Enable PHP specific indenting
-let PHP_default_indenting=1
 let PHP_autoformatcomment=0
 let PHP_vintage_case_default_indent=1
 " Sync PHP code highlighting from start
