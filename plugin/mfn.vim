@@ -145,6 +145,14 @@ function! Mfn_PHP_JoinWithoutCommentChar()
     endif
 endfunc
 
+" If doing a diff. Upon writing changes to file, automatically update the
+" differences; source
+" http://vim.wikia.com/wiki/Update_the_diff_view_automatically
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+
+" Associate .md by default with Markdown, not Modula2
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
 " ~~~~~~~~~~~~~~~~~~ Ruby ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Use 2 instead of 4 spaces for tabs; per general Ruby convention; enforce
 " textwidth
