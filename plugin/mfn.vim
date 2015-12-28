@@ -163,6 +163,11 @@ autocmd BufEnter *.rb set makeprg=ruby\ -wc\ % errorformat=%f:%l:\ %m
 let ruby_operators=1
 let ruby_minlines=100
 
+" ~~~~~~~~~~~~~~~~~~ Crytsal Language ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Use 2 instead of 4 spaces for tabs; per general crystal-lang convention; enforce
+" textwidth
+autocmd FileType crystal setlocal shiftwidth=2 tabstop=2 softtabstop=2 formatoptions+=t list
+
 " ~~~~~~~~~~~~~~~~~~ Misc files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " When editing a build.xml file, :make refers to phing
 autocmd BufEnter build.xml set makeprg=phing errorformat=%f:%l:%c
