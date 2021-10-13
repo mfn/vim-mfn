@@ -153,6 +153,9 @@ autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 " Associate .md by default with Markdown, not Modula2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
+" ~~~~~~~~~~~~~~~~~~ Shell ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+autocmd FileType sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 formatoptions+=t
+
 " ~~~~~~~~~~~~~~~~~~ Ruby ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Use 2 instead of 4 spaces for tabs; per general Ruby convention; enforce
 " textwidth
