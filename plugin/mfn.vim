@@ -190,7 +190,7 @@ if has('gui_macvim')
 endif
 if has('gui_running')
     " Explicitely specify default colors for GUI
-    highlight normal guifg=green guibg=#00005d
+    highlight normal guifg=#00f900 guibg=#00005d
     " The standard background color for folds is some gray which disturbs my
     " visuals. Use a slighty different color then the current normal guibg
     highlight Folded guibg=#000050
@@ -229,9 +229,10 @@ if has('gui_running')
 endif
 if has('gui_macvim')
     " slightly more blueish background on osx
-    highlight normal guibg=#00006d
+    highlight normal guibg=#000d62
     " current preferred font/size
     set guifont=Monaco:h15
+    set linespace=1
     " Enable for mac; but can be a performance hog
     set cursorline
 end
