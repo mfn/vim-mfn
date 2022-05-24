@@ -231,7 +231,7 @@ if has('gui_macvim')
     " slightly more blueish background on osx
     highlight normal guibg=#00006d
     " current preferred font/size
-    set guifont=Menlo:h15
+    set guifont=Monaco:h15
     " Enable for mac; but can be a performance hog
     set cursorline
 end
